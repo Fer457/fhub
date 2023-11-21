@@ -6,23 +6,12 @@ import bcrypt from "bcryptjs";
 
 async function getUser(email: string): Promise<any | undefined> {
   try {
-    // const res = await fetch(
-    //   `${process.env.REACT_APP_BACKEND_URL}/users/login`,
-    //   {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ email }),
-    //   }
-    // );
-    // const user = await res.json();
-    // console.log(user);
+    const res = await fetch(`${process.env.APP_BACKEND_URL}/users/${email}`);
 
-    const user = {
-      email:"feradmin@admin.es",
-      password:"$2b$12$Anjq/2CzLkl74TnbBA9QPuHm1loXcT5krzB3GevRlaaNyUS3x9z7i"
+    if (res.ok) {
+      const user = await res.json();
+      return user;
     }
-
-    return user;
   } catch (error) {
     console.error("Failed to fetch user:", error);
     throw new Error("Failed to fetch user.");
@@ -41,6 +30,7 @@ export const { auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
+
           if (!user) return null;
           const passwordsMatch = await bcrypt.compare(password, user.password);
           if (passwordsMatch) return user;
