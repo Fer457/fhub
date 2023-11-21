@@ -4,7 +4,7 @@ export default function LoginButton() {
     const { pending } = useFormStatus();
    
     return (
-      <button className="mt-4 bg-blue-400 rounded-md p-4 w-full" aria-disabled={pending}>
+      <button className="mt-16 rounded-md p-3 w-full text-black bg-white font-bold" aria-disabled={pending}>
         Log in
       </button>
     );
