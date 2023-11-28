@@ -1,6 +1,6 @@
 import { signOut } from "@/auth/auth";
 import { auth } from "@/auth/auth";
-import NavLinks from "./home/NavLinks";
+import NavLinks from "./NavLinks";
 
 export default async function SideNav() {
   const session = await auth();
